@@ -1,5 +1,6 @@
 # yamdb_final
 [![YAMDB workflow status](https://github.com/yanasedowa/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg?event=push)
+
 ### Описание
 
 Проект **YaMDb** — собирает отзывы пользователей на произведения. Произведения делятся на категории, список которых может быть расширен администратором. В каждой категории есть произведения: книги, фильмы или музыка.
