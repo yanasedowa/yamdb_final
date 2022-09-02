@@ -1,5 +1,5 @@
 # yamdb_final
-[![YAMDB workflow status](https://github.com/yanasedowa/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg?event=push)
+![Django-app workflow](https://github.com/yanasedowa/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg?event=push)
 
 ### Описание
 
@@ -76,85 +76,87 @@ sudo apt-get install python3.7
 
 ```
 
-git clone git@github.com:yanasedowa/infra_sp2.git
+git clone git@github.com:yanasedowa/yamdb_final.git
 
 ```
   
 
 ```
 
-cd infra_sp2
+cd yamdb_final/infra/nginx
 
 ```
 
-Перейти в директорию infra:
-
-
-```
-
-cd infra
+В файле `default.conf`:
 
 ```
 
-Создать файл .env и прописать переменные окружения в нём для работы с базой данных:
+`server_name`: публичный IP сервера
 
 ```
 
-touch .env
+Скопировать файлы 'docker-compose.yaml' и 'nginx/default.conf' из вашего проекта на сервер в home/<ваш_username>/docker-compose.yaml и home/<ваш_username>/nginx/default.conf соответственно:
+
+В домашней директории на сервере:
+
+```
+mkdir nginx
 
 ```
 
-```
-
-DB_ENGINE=django.db.backends.postgresql # указываем, что работаем с postgresql
-DB_NAME=postgres # имя базы данных
-POSTGRES_USER=postgres # логин для подключения к базе данных
-POSTGRES_PASSWORD=postgres # пароль для подключения к БД (установите свой)
-DB_HOST=db # название сервиса (контейнера)
-DB_PORT=5432 # порт для подключения к БД
-SECRET_KEY=key 
+В локальном репозитории:
 
 ```
 
-Проверить, установлен ли Docker:
+scp docker-compose.yaml <username>@<host>:/home/<username>/docker-compose.yaml
+scp default.conf <username>@<host>:/home/<username>/nginx/default.conf
 
 ```
 
-docker -v
+
+Заполнить данные в `Settings - Secrets - Actions secrets`:
 
 ```
 
-Если Docker не установлен:
-
-Скачать [Docker Desktop](https://www.docker.com/products/docker-desktop/). 
-
-Для Linux:
-
-```
-
-sudo apt install curl
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh get-docker.sh
-
-```
-
-Установить Docker, а вместе с ним Docker Compose:
-
-```
-
-sudo apt install docker-ce docker-compose -y 
+DOCKER_USERNAME: логин в DockerHub
+DOCKER_PASSWORD: пароль пользователя в DockerHub
+HOST: публичный ip-адрес сервера
+USER: логин на сервере
+SSH_KEY: приватный ssh-ключ (cat ~/.ssh/id_rsa)
+PASSPHRASE: eсли при создании ssh-ключа вы использовали фразу-пароль
+DB_ENGINE: django.db.backends.postgresql
+DB_HOST: db
+DB_PORT: 5432
+TELEGRAM_TO: id своего телеграм-аккаунта
+TELEGRAM_TOKEN: токен бота
+DB_NAME: postgres
+POSTGRES_USER: postgres 
+POSTGRES_PASSWORD: postgres
+SECRET_KEY: key
 
 ```
 
-Запустить docker-compose:
+Войти на свой удаленный сервер в облаке.
+
+Остановить службу nginx:
 
 ```
 
-docker-compose up -d
+sudo systemctl stop nginx
 
 ```
 
-Будут созданы и запущены в фоновом режиме контейнеры (db, web, nginx).
+Установить docker и docker-compose:
+
+```
+
+sudo apt install docker.io
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+```
+
+После деплоя будут созданы и запущены в фоновом режиме контейнеры (db, web, nginx).
 
 Выполнить миграции, создать суперпользователя, подгрузить статику:
 
@@ -303,6 +305,7 @@ http://localhost/api/v1/titles/{titles_id}/
 -   [Gunicorn](https://gunicorn.org/)
 -   [nginx](https://www.nginx.com/)
 -   [Docker](https://www.docker.com/products/docker-desktop/)
+-   [GitHub Actions](https://github.com/features/actions)
 
 
 ### Автор
