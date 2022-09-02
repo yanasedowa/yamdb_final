@@ -1,20 +1,19 @@
 import uuid
-from rest_framework import viewsets, status, filters
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import AccessToken
-from rest_framework.views import APIView
 
+from api.permissions import IsAdmin
 from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
+from rest_framework import filters, status, viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import AccessToken
 
-from .serializers import (
-    SendCodeSerializer, CheckCodeSerializer, UserSerializer)
-from api.permissions import (
-    IsAdmin,
-)
-from .models import User
 from api_yamdb.settings import FROM_EMAIL
+
+from .models import User
+from .serializers import (CheckCodeSerializer, SendCodeSerializer,
+                          UserSerializer)
 
 
 @api_view(['POST'])

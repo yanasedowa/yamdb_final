@@ -1,9 +1,7 @@
+from django.db.models import Avg
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from django.db.models import Avg
-from reviews.models import (
-    Category, Comment, Genre, Review, Title, User,
-)
+from reviews.models import Category, Comment, Genre, Review, Title, User
 
 
 class CategorySerializer(serializers.ModelSerializer):
