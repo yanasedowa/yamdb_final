@@ -54,23 +54,6 @@ TITLES
 На macOS или Linux запустите программу Терминал. 
 Если у вас Windows — запускайте [Git Bash](https://gitforwindows.org/)
 
-Установите интерпретатор Python 3.7
-
-Для Windows:
-www.python.org/downloads/#
-
-Для MacOS:
-
-```
-brew install python@3.7
-```
-
-Для Linux (Ubuntu):
-
-```
-sudo apt-get install python3.7
-```
-
 Клонировать репозиторий и перейти в него в командной строке:
 
 
